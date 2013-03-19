@@ -19,6 +19,9 @@
     [super viewDidLoad];
     linea=[Linea sharedDevice];
 	[linea addDelegate:self];
+    [linea barcodeSetScanMode:BARCODE_TYPE_DEFAULT error:nil];
+    
+    [linea connect];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -69,17 +72,24 @@ bool scanActive = false;
             break;
 		case CONN_CONNECTING:
             NSLog(@"not connected");
+            
 			break;
 		case CONN_CONNECTED:
             NSLog(@"connected");
-
+            [linea msStartScan:nil];
+            [linea barcodeEnginePowerControl:YES error:nil];
 			break;
 	}
 }
 
 -(void)barcodeData:(NSString *)barcode type:(int)type {
     [self.barcodeLabel setText:barcode];
+    NSLog(@"barcode data sent, %@", barcode);
 }
 
+
+- (void) deviceButtonPressed:(int) btn {
+    NSLog(@"a button on the scanner is pressed");
+}
 
 @end
