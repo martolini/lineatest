@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LineaSDK.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <LineaDelegate> {
+    Linea *linea;
+}
+
+-(IBAction)scanDown:(id)sender;
+-(IBAction)scanUp:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *barcodeLabel;
 
 @end
